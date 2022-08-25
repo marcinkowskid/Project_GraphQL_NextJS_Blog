@@ -1,13 +1,10 @@
 import Head from 'next/head';
 // Components
 import { PostCard, PostWidget, Categories } from '../components';
+// gql
+import { getPosts } from '../services';
 
-const posts = [
-  { title: 'React Testing', excerpt: 'Testing React components' },
-  { title: 'React Blog', excerpt: 'React blog components' },
-];
-
-const Home = () => {
+const Home = ({ posts }) => {
   return (
     <div className='container mx-auto px-10 mb-8'>
       <Head>
@@ -16,7 +13,7 @@ const Home = () => {
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
         <div className='lg:col-span-8 col-span-1'>
           {posts.map((post) => (
-            <PostCard key={post.title} post={post} />
+            <PostCard key={post.cursor} post={post.node} />
           ))}
         </div>
         <div className='lg:col-span-4 col-span-1'>
@@ -28,6 +25,16 @@ const Home = () => {
       </div>
     </div>
   );
+};
+
+export const getStaticProps = async () => {
+  const posts = (await getPosts()) || [];
+
+  return {
+    props: {
+      posts: posts,
+    },
+  };
 };
 
 export default Home;
