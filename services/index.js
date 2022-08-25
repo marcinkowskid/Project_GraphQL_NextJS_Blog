@@ -42,7 +42,7 @@ export const getPosts = async () => {
 export const getRecentPosts = async () => {
   const query = gql`
     query GetPostDetails() {
-      posts(orderBy: createdAt_ASC, first: 3) {
+      posts(orderBy: createdAt_DESC, first: 3) {
         title
         slug
         createdAt
@@ -81,4 +81,19 @@ export const getSimilarPosts = async () => {
   const result = await request(graphqlAPI, query, { slug, categories });
 
   return result.posts;
+};
+
+export const getCategories = async () => {
+  const query = gql`
+    query GetCategories {
+      categories {
+        name
+        slug
+      }
+    }
+  `;
+
+  const result = await request(graphqlAPI, query);
+
+  return result.categories;
 };
