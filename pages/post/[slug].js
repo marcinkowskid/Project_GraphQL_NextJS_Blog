@@ -48,6 +48,8 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
+// Specify dynamic routes to pre-render pages based on data.
+// The HTML is generated at build time and will be reused on each request.
 export const getStaticPaths = async () => {
   const posts = await getPosts();
 
