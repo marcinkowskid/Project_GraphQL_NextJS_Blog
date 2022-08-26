@@ -19,7 +19,7 @@ const RelatedPost = ({ post }) => {
         <p className='text-gray-500 font-xs'>
           {moment(post.createdAt).format('MMM DD, YYYY')}
         </p>
-        <Link href={`post/${post.slug}`} className='text-md'>
+        <Link href={`/post/${post.slug}`} className='text-md'>
           {post.title}
         </Link>
       </div>

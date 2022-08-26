@@ -131,3 +131,15 @@ export const getPostDetails = async (slug) => {
 
   return result.post;
 };
+
+export const submitComment = async (data) => {
+  const result = await fetch('/api/comments', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return result.json();
+};
