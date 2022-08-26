@@ -67,6 +67,7 @@ const PostDetail = ({ post }) => {
           alt={post.title}
           layout='fill'
           unoptimized
+          priority
           className='object-top h-full w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg'
         />
       </div>

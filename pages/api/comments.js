@@ -8,7 +8,7 @@ import { GraphQLClient, gql } from 'graphql-request';
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 const graphcmsToken = process.env.GRAPHCMS_TOKEN;
 
-export default comments = async (req, res) => {
+const comments = async (req, res) => {
   const graphQLClient = new GraphQLClient(graphqlAPI, {
     headers: {
       authorization: `Bearer ${graphcmsToken}`,
@@ -37,8 +37,10 @@ export default comments = async (req, res) => {
 
   try {
     const result = await graphQLClient.request(createCommentMutation, req.body);
-    return res.status(201).json(result);
+    res.status(201).json(result);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
+
+export default comments;
