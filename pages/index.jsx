@@ -1,6 +1,7 @@
 import Head from 'next/head';
 // Components
 import { PostCard, PostWidget, Categories } from '../components';
+import { FeaturedPosts } from '../sections';
 // gql
 import { getPosts } from '../services';
 
@@ -10,9 +11,10 @@ const Home = ({ posts }) => {
       <Head>
         <title>GraphCMS Blog</title>
       </Head>
+      <FeaturedPosts />
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
         <div className='lg:col-span-8 col-span-1'>
-          {posts.map((post) => (
+          {posts.map((post, index) => (
             <PostCard key={post.cursor} post={post.node} />
           ))}
         </div>

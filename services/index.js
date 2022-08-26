@@ -194,3 +194,65 @@ export const getAdjacentPosts = async (createdAt, slug) => {
 
   return { next: result.next[0], previous: result.previous[0] };
 };
+
+export const getFeaturedPosts = async () => {
+  const query = gql`
+    query GetFeaturedPosts() {
+      posts(where: {featuredPost: true}) {
+        title
+        slug
+        createdAt
+        author {
+          name
+          photo {
+            url
+          }
+        }
+        featuredImage {
+          url
+        }
+      }
+    }   
+  `;
+
+  const result = await request(graphqlAPI, query);
+
+  return result.posts;
+};
+
+export const getCategoryPosts = async (slug) => {
+  const query = gql`
+    query GetCategoryPosts($slug: String!) {
+      postsConnection(where: { categories_some: { slug: $slug } }) {
+        edges {
+          cursor
+          node {
+            author {
+              bio
+              name
+              id
+              photo {
+                url
+              }
+            }
+            createdAt
+            slug
+            title
+            excerpt
+            featuredImage {
+              url
+            }
+            categories {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const result = await request(graphqlAPI, query, { slug });
+
+  return result.postsConnection.edges;
+};
